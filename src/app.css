@@ -1,0 +1,18 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number'] {
+		-webkit-appearance: none;
+		margin: 0;
+		-moz-appearance: textfield !important;
+		appearance: inherit;
+	}
+
+	.btn {
+		@apply p-1;
+	}
+}
