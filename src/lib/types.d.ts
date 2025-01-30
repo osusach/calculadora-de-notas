@@ -1,11 +1,9 @@
-import type { Z_VERSION_ERROR } from 'node:zlib';
-
 type Nota = {
 	valor: number;
 	ponderacion: number;
 	pendiente: boolean;
 	expresion: string;
-	group: string;
+	group: Nota[];
 };
 
 type Curso = {

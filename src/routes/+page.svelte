@@ -2,8 +2,7 @@
 	import { calcularNotas, notaAcumulada, ponderacionAcumulada } from '$lib/calcular';
 	import { curso, addCurso, cursos } from '$lib/stores.svelte';
 	import ComponenteNota from '$lib/components/ComponenteNota.svelte';
-	import { initGroup } from '$lib';
-	import type { Nota } from '$lib/types';
+	import { nuevaNota } from '$lib';
 
 	let notas: Nota[] = $derived(curso.notas);
 	let promedio_simple = $derived(curso.promedio_simple);
@@ -17,13 +16,7 @@
 	}
 
 	function handleNuevaNota() {
-		curso.notas.push({
-			pendiente: false,
-			ponderacion: 0.25,
-			valor: 1.0,
-			expresion: '0.25',
-			group: initGroup()
-		});
+		curso.notas.push(nuevaNota);
 
 		if (promedio_simple) {
 			igualarPonderaciones();
@@ -36,6 +29,7 @@
 			igualarPonderaciones();
 		}
 	}
+	$inspect(curso);
 </script>
 
 <button onclick={addCurso}>add</button>
@@ -59,7 +53,22 @@
 
 <div class="my-4 grid grid-cols-3 gap-4">
 	{#each notas as _, idx}
-		<ComponenteNota {idx} />
+		<ComponenteNota
+			nota={notas[idx]}
+			isSub={false}
+			removeNota={() => {
+				curso.notas = notas.toSpliced(idx, 1);
+			}}
+		/>
+		{#each notas[idx].group as _, subIdx}
+			<ComponenteNota
+				nota={notas[idx].group[subIdx]}
+				isSub={true}
+				removeNota={() => {
+					notas[idx].group = notas[idx].group.toSpliced(subIdx, 1);
+				}}
+			/>
+		{/each}
 	{/each}
 </div>
 

@@ -1,5 +1,3 @@
-import type { Nota } from './types';
-
 export function notaAcumulada(notas: Nota[]) {
 	const nota_acumulada = notas.reduce((acc, currentValue) => {
 		return acc + currentValue.valor * currentValue.ponderacion;

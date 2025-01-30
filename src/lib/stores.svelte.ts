@@ -1,10 +1,7 @@
-import type { Curso } from './types';
-
 let curso_idx = $state(0);
 
-export let cursos = $state([{ nombre: 'Curso-1', notas: [], promedio_simple: true }]);
+export let cursos: Curso[] = $state([{ nombre: 'Curso-1', notas: [], promedio_simple: true }]);
 
-// curso con el idx actual, resto de getters y setters para comodidad
 export const curso = {
 	get value() {
 		return cursos[curso_idx];
